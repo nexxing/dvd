@@ -1,0 +1,50 @@
+import pygame
+import random
+
+# Initialize Pygame
+pygame.init()
+
+# Set the dimensions of the window
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
+
+# Load the DVD logo image
+logo_img = pygame.image.load("dvd_logo.png")
+logo_width, logo_height = logo_img.get_size()
+
+# Set the initial position and velocity of the logo
+logo_x = random.randint(0, screen_width - logo_width)
+logo_y = random.randint(0, screen_height - logo_height)
+logo_dx = 5
+logo_dy = 5
+
+# Set the background color
+bg_color = (0, 0, 0)
+
+# Run the game loop
+while True:
+    # Handle events
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+
+    # Clear the screen
+    screen.fill(bg_color)
+
+    # Move the logo
+    logo_x += logo_dx
+    logo_y += logo_dy
+
+    # Bounce the logo off the walls
+    if logo_x < 0 or logo_x + logo_width > screen_width:
+        logo_dx = -logo_dx
+    if logo_y < 0 or logo_y + logo_height > screen_height:
+        logo_dy = -logo_dy
+
+    # Draw the logo
+    screen.blit(logo_img, (logo_x, logo_y))
+
+    # Update the screen
+    pygame.display.flip()
